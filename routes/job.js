@@ -41,22 +41,19 @@ router.addJob = function(req, res) {
 
 };
 
-/*
 router.updateJob = function(req,res) {
-    var job = getByValue(jobs, req.params.id);
 
+    var job = getByValue(jobs, req.params.id);
     var oldTitle = job.title;
     var newTitle = req.body.title;
 
-    oldTitle = newTitle;
+    job.title = newTitle;
 
     if (oldTitle !== newTitle)
         res.json({message : 'Title Updated'});
     else
         res.json({message : 'Title not Updated '});
-
 };
-*/
 
 router.deleteJob = function(req, res){
 
