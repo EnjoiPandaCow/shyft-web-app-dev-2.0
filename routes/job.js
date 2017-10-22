@@ -35,15 +35,46 @@ router.addJob = function(req, res) {
         ]});
 
     if((currentSize + 1) === jobs.length)
-        res.json({ message: 'Donation Added!'});
+        res.json({ message: 'Job Added!'});
     else
-        res.json({ message: 'Donation NOT Added!'});
+        res.json({ message: 'Job Not Added!'});
 
 };
 
-function getByValue(arr, id) {
+/*
+router.updateJob = function(req,res) {
+    var job = getByValue(jobs, req.params.id);
 
-    var result = arr.filter(function(o){return o.id === id;});
+    var oldTitle = job.title;
+    var newTitle = req.body.title;
+
+    oldTitle = newTitle;
+
+    if (oldTitle !== newTitle)
+        res.json({message : 'Title Updated'});
+    else
+        res.json({message : 'Title not Updated '});
+
+};
+*/
+
+router.deleteJob = function(req, res){
+
+    var job = getByValue(jobs, req.params.title);
+    var index = jobs.indexOf(job);
+
+    var currentSize = jobs.length;
+    jobs.splice(index, 1);
+
+    if((currentSize - 1) === jobs.length)
+        res.json({message:'Job Deleted!'});
+    else
+        res.json({message:'Job Not Deleted!'});
+};
+
+
+function getByValue(arr, id) {
+    var result = arr.filter(function(o){return o.id.toString() === id.toString();});
     return result ? result[0] : null;
 }
 
