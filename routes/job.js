@@ -41,6 +41,20 @@ router.addJob = function(req, res) {
 
 };
 
+router.updateJob = function(req,res) {
+
+    var job = getByValue(jobs, req.params.id);
+    var oldTitle = job.title;
+    var newTitle = req.body.title;
+
+    job.title = newTitle;
+
+    if (oldTitle !== newTitle)
+        res.json({message : 'Title Updated'});
+    else
+        res.json({message : 'Title not Updated '});
+};
+
 function getByValue(arr, id) {
 
     var result = arr.filter(function(o){return o.id === id;});
