@@ -17,6 +17,30 @@ router.findOne = function(req,res){
         res.json({message:'Job Not Found'});
 };
 
+router.addJob = function(req, res) {
+
+    var id = Math.floor((Math.random()*100000 + 1));
+    var currentSize = jobs.length;
+    jobs.push({
+        "id": id,
+        "title" : req.body.title,
+        "desc" : req.body.desc,
+        "size" : req.body.size,
+        "cLoc" : req.body.cLoc,
+        "dLoc" : req.body.dLoc,
+        "dTime" : req.body.dTime,
+        "price" : req.body.price,
+        "photos" : [
+            req.body.photos
+        ]});
+
+    if((currentSize + 1) === jobs.length)
+        res.json({ message: 'Donation Added!'});
+    else
+        res.json({ message: 'Donation NOT Added!'});
+
+};
+
 function getByValue(arr, id) {
 
     var result = arr.filter(function(o){return o.id === id;});
