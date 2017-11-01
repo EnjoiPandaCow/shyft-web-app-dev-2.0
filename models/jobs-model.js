@@ -14,7 +14,15 @@ var JobSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    cLoc: {
+    cStreet: {
+      type: String,
+      required: true
+    },
+    cTown: {
+        type: String,
+        required: true
+    },
+    cCounty: {
         type: String,
         required: true
     },
@@ -22,7 +30,15 @@ var JobSchema = new mongoose.Schema({
         type: [Number],
         index: '2dsphere'
     },
-    dLoc: {
+    dStreet: {
+        type: String,
+        required: true
+    },
+    dTown: {
+        type: String,
+        required: true
+    },
+    dCounty: {
         type: String,
         required: true
     },
@@ -40,7 +56,11 @@ var JobSchema = new mongoose.Schema({
     },
     photos: {
         type: [String],
-        requires: false
+        required: false
+    },
+    userId: {
+        type: ObjectId,
+        required: true
     }
 });
 

@@ -15,11 +15,13 @@ db.once('open', function(){
    console.log('Connected to the Database')
 });
 
+
 router.findAll = function(req, res) {
     Job.find(function(err, job) {
        if(err)
            res.send(err);
-       res.json(job);
+       else
+           res.json(job);
     });
 };
 
@@ -59,14 +61,13 @@ router.addJob = function (req,res) {
 router.updateJob = function (req,res) {
   Job.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
      if(err)
-         return res.json(err);
+          res.json(err);
      else
-         return res.json(doc);
+          res.json(doc);
   });
 };
 
 router.deleteJob = function(req, res) {
-
     Job.findByIdAndRemove(req.params.id, function(err) {
         if(err)
             res.send(err);
@@ -74,5 +75,37 @@ router.deleteJob = function(req, res) {
             res.json({message: 'Donation Deleted!'});
     });
 };
+
+router.search = function(req, res) {
+
+    Job.find().lean.exec(function(err, jobs) {
+      if (err)
+          res.status(400).send(err);
+
+      var joobs = jobs;
+      var key = [];
+
+      if(req.body.key) {
+          if (typeof req.body.key === 'object' && req.body.key.constructor === Array) {
+              key = req.body.key;
+          } else {
+              key.push(req.body.key);
+          }
+      }
+      var options = {
+          keys: key
+      };
+
+      var fuse = new Fuse(joobs, options);
+      var result = fuse.search(req.body.value);
+
+      if(result.length > 0) {
+          return res.json(result);
+      }else {
+          res.status(404).json({message: 'Result Not Found'});
+      }
+    });
+};
+
 
 module.exports = router;
