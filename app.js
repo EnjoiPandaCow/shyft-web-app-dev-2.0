@@ -29,7 +29,7 @@ app.get('/jobs', jobs.findAll);
 app.get('/jobs/:id', jobs.findOne);
 app.post('/jobs', jobs.addJob);
 app.delete('/jobs/:id', jobs.deleteJob);
-app.put('/jobs/:id/title', jobs.updateJob);
+app.put('/jobs/title/:id', jobs.updateJob);
 
 
 // catch 404 and forward to error handler
