@@ -77,7 +77,7 @@ router.deleteJob = function(req, res) {
         if(err)
             res.send(err);
         else
-            res.json({message: 'Donation Deleted!'});
+            res.json({message: 'Job Deleted!'});
     });
 };
 

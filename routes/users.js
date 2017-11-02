@@ -64,5 +64,14 @@ router.updateUser = function (req,res) {
     });
 };
 
+router.deleteUser = function(req, res) {
+    Users.findByIdAndRemove(req.params.id, function(err) {
+        if(err)
+            res.send(err);
+        else
+            res.json({message: 'User Deleted!'});
+    });
+};
+
 
 module.exports = router;
