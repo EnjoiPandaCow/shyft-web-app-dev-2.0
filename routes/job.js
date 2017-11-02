@@ -64,12 +64,12 @@ router.addJob = function (req,res) {
 };
 
 router.updateJob = function (req,res) {
-  Job.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
-     if(err)
-          res.json(err);
-     else
-          res.json(doc);
-  });
+    Job.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
+        if(err)
+            return res.json(err);
+        else
+            return res.json(doc);
+    });
 };
 
 router.deleteJob = function(req, res) {
@@ -81,6 +81,7 @@ router.deleteJob = function(req, res) {
     });
 };
 
+/*
 router.search = function(req, res) {
 
     Job.find().lean.exec(function(err, jobs) {
@@ -111,6 +112,7 @@ router.search = function(req, res) {
       }
     });
 };
+*/
 
 
 module.exports = router;

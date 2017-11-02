@@ -55,5 +55,14 @@ router.addUser = function (req,res) {
     });
 };
 
+router.updateUser = function (req,res) {
+    Users.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
+        if(err)
+            res.json(err);
+        else
+            res.json(doc);
+    });
+};
+
 
 module.exports = router;
