@@ -48,7 +48,7 @@ var JobSchema = new mongoose.Schema({
     },
     dTime: {
         type: Date,
-        required: true
+        required: true,
     },
     price: {
         type: Number,

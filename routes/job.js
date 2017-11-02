@@ -8,29 +8,26 @@ mongoose.connect('mongodb://localhost:27017/shyft');
 var db = mongoose.connection;
 
 db.on('error', function(err){
-   console.log('Connection Error', err);
 });
 
 db.once('open', function(){
-   console.log('Connected to the Database')
 });
-
 
 router.findAll = function(req, res) {
     Job.find(function(err, job) {
        if(err)
-           res.send(err);
+           res.status(404).send(err);
        else
-           res.json(job);
+           res.status(200).json(job);
     });
 };
 
 router.findOne = function(req,res) {
   Job.find({"_id" : req.params.id}, function(err, job) {
-     if(err)
-         res.json({message: 'Job Not Found!', errmsg : err});
-     else
-         res.json(job);
+      if (err)
+          res.status(404).json({message: 'Job Not Found! Please Try Another Job ID.'});
+      else
+      res.status(200).json(job);
   });
 };
 
@@ -53,31 +50,29 @@ router.addJob = function (req,res) {
     job.photos = req.body.photos;
     job.userId = req.body.userId;
 
-    console.log('Adding job: ' + JSON.stringify(job));
-
     job.save(function(err) {
        if (err)
-           res.send(err);
+           res.status(400).json({message: 'Job Not Added! Please Check That You Are Filling All Fields'});
        else
-           res.json({message: 'Job Added!', data: job});
+           res.status(200).json({message: 'Job Added!'});
     });
 };
 
 router.updateJob = function (req,res) {
-    Job.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
+    Job.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err) {
         if(err)
-            return res.json(err);
+            return res.status(400).json({message: 'Failed To Update Job. Please Try Again'});
         else
-            return res.json(doc);
+            return res.status(200).json({message: 'Job Updated'});
     });
 };
 
 router.deleteJob = function(req, res) {
     Job.findByIdAndRemove(req.params.id, function(err) {
         if(err)
-            res.send(err);
+            res.status(400).json({message: 'Failed To Delete Job. Please Try Again'});
         else
-            res.json({message: 'Job Deleted!'});
+            res.status(200).json({message: 'Job Sucessfully Deleted!'});
     });
 };
 
