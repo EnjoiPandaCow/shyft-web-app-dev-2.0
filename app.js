@@ -28,7 +28,7 @@ app.use('/users', users);
 
 app.get('/jobs', jobs.findAll);
 app.get('/jobs/:id', jobs.findOne);
-app.post('/jobs/find', jobs.search);
+//app.post('/jobs/find', jobs.search);
 app.post('/jobs', jobs.addJob);
 app.delete('/jobs/:id', jobs.deleteJob);
 app.put('/jobs/:id', jobs.updateJob);
@@ -36,6 +36,7 @@ app.put('/jobs/:id', jobs.updateJob);
 app.get('/users', users.findAll);
 app.get('/users/:id', users.findOne);
 app.post('/users', users.addUser);
+app.put('/users/:id', users.updateUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
