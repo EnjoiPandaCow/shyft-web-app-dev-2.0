@@ -59,7 +59,7 @@ var JobSchema = new mongoose.Schema({
         required: false
     },
     userId: {
-        type: ObjectId,
+        type: String,
         required: true
     }
 });

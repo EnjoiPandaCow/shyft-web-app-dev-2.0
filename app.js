@@ -26,15 +26,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
-
-
-
 app.get('/jobs', jobs.findAll);
 app.get('/jobs/:id', jobs.findOne);
 app.post('/jobs/find', jobs.search);
 app.post('/jobs', jobs.addJob);
 app.delete('/jobs/:id', jobs.deleteJob);
 app.put('/jobs/:id', jobs.updateJob);
+
 
 
 
