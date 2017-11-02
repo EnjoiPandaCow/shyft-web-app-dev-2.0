@@ -61,9 +61,9 @@ router.addJob = function (req,res) {
 router.updateJob = function (req,res) {
     Job.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err) {
         if(err)
-            return res.status(400).json({message: 'Failed To Update Job. Please Try Again'});
+            res.status(400).json({message: 'Failed To Update Job. Please Try Again'});
         else
-            return res.status(200).json({message: 'Job Updated'});
+            res.status(200).json({message: 'Job Updated'});
     });
 };
 

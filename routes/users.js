@@ -1,4 +1,4 @@
-var Users = require('../models/users-model');
+var User = require('../models/users-model');
 var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
@@ -16,25 +16,25 @@ db.once('open', function(){
 });
 
 router.findAll = function(req, res) {
-    Users.find(function(err, job) {
+    User.find(function(err, user) {
         if(err)
-            res.send(err);
+            res.status(404).send(err);
         else
-            res.json(job);
+            res.status(200).json(user);
     });
 };
 
 router.findOne = function(req,res) {
-    Users.find({"_id" : req.params.id}, function(err, user) {
+    User.find({"_id" : req.params.id}, function(err, user) {
         if(err)
-            res.json({message: 'User Not Found!', errmsg : err});
+            res.status(404).json({message: 'User Not Found! Please Try Another Job ID.'});
         else
-            res.json(user);
+            res.status(200).json(user);
     });
 };
 
 router.addUser = function (req,res) {
-    var user = new Users();
+    var user = new User();
 
     user.fName = req.body.fName;
     user.lName = req.body.lName;
@@ -45,31 +45,29 @@ router.addUser = function (req,res) {
     user.town = req.body.town;
     user.county = req.body.county;
 
-    console.log('Adding job: ' + JSON.stringify(user));
-
     user.save(function(err) {
         if (err)
-            res.send(err);
+            res.status(400).json({message: 'User Not Added! Please Check That You Are Filling All Fields'});
         else
-            res.json({message: 'User Added!', data: user});
+            res.status(200).json({message: 'User Added!'});
     });
 };
 
 router.updateUser = function (req,res) {
-    Users.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
+    User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, doc) {
         if(err)
-            res.json(err);
+            res.status(400).json({message: 'Failed To Update User Profile. Please Try Again'});
         else
-            res.json(doc);
+            res.status(200).json({message: 'User Updated'});
     });
 };
 
 router.deleteUser = function(req, res) {
-    Users.findByIdAndRemove(req.params.id, function(err) {
+    User.findByIdAndRemove(req.params.id, function(err) {
         if(err)
-            res.send(err);
+            res.status(400).json({message: 'Failed To Delete User. Please Try Again'});
         else
-            res.json({message: 'User Deleted!'});
+            res.status(200).json({message: 'User Sucessfully Deleted!'});
     });
 };
 
