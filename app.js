@@ -33,8 +33,8 @@ app.post('/jobs', jobs.addJob);
 app.delete('/jobs/:id', jobs.deleteJob);
 app.put('/jobs/:id', jobs.updateJob);
 
-
-
+app.get('/users', users.findAll);
+app.get('/users/:id', users.findOne);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
