@@ -33,4 +33,27 @@ router.findOne = function(req,res) {
     });
 };
 
+router.addUser = function (req,res) {
+    var user = new Users();
+
+    user.fName = req.body.fName;
+    user.lName = req.body.lName;
+    user.email = req.body.email;
+    user.contactNo = req.body.contactNo;
+    user.password = req.body.password;
+    user.street = req.body.street;
+    user.town = req.body.town;
+    user.county = req.body.county;
+
+    console.log('Adding job: ' + JSON.stringify(user));
+
+    user.save(function(err) {
+        if (err)
+            res.send(err);
+        else
+            res.json({message: 'User Added!', data: user});
+    });
+};
+
+
 module.exports = router;
