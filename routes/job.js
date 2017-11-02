@@ -40,13 +40,18 @@ router.addJob = function (req,res) {
     job.title = req.body.title;
     job.desc = req.body.desc;
     job.size = req.body.size;
-    job.cLoc = req.body.cLoc;
+    job.cStreet = req.body.cStreet;
+    job.cTown = req.body.cTown;
+    job.cCounty = req.body.cCounty;
     job.cCoordinates = req.body.cCoordinates;
-    job.dLoc = req.body.dLoc;
+    job.dStreet = req.body.dStreet;
+    job.dTown = req.body.dTown;
+    job.dCounty = req.body.dCounty;
     job.dCoordinates = req.body.dCoordinates;
     job.dTime = req.body.dTime;
     job.price = req.body.price;
     job.photos = req.body.photos;
+    job.userId = req.body.userId;
 
     console.log('Adding job: ' + JSON.stringify(job));
 

@@ -35,6 +35,7 @@ app.put('/jobs/:id', jobs.updateJob);
 
 app.get('/users', users.findAll);
 app.get('/users/:id', users.findOne);
+app.post('/users', users.addUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
